@@ -587,6 +587,43 @@ if ('serviceWorker' in navigator) {
 })();
 
 /* ==========================================
+   Customer Installations Gallery
+   ========================================== */
+(function () {
+  const grid = document.getElementById('installations-grid');
+  if (!grid) return;
+
+  // Images array — user will add more files to public/assets/installations/
+  // Each entry: { file: 'filename.webp', customer: 'اسم العميل', product: 'المنتج', location: 'المكان' }
+  const photos = [
+    // Placeholder: user adds real photos here
+    // Example entry when images exist:
+    // { file: 'customer-1.webp', customer: 'أحمد جابر', product: 'ماتور ديمى 9000', location: 'عمارة ٦ أدوار' },
+  ];
+
+  if (photos.length === 0) {
+    grid.innerHTML = '<div class="installations__empty">📸 قريباً — شاركنا صورتك وظهر في المعرض</div>';
+    return;
+  }
+
+  photos.forEach(function (photo, i) {
+    var card = document.createElement('div');
+    card.className = 'installation__card';
+    card.style.animationDelay = i * 0.08 + 's';
+    card.innerHTML = '\
+      <div class="installation__image-wrap">\
+        <img src="assets/installations/' + photo.file + '" alt="توصيلة ' + photo.customer + '" loading="lazy" class="installation__img">\
+      </div>\
+      <div class="installation__info">\
+        <span class="installation__customer">' + photo.customer + '</span>\
+        <span class="installation__detail">' + photo.product + ' — ' + photo.location + '</span>\
+      </div>\
+    ';
+    grid.appendChild(card);
+  });
+})();
+
+/* ==========================================
    JSON-LD Product Schemas (dynamic)
    ========================================== */
 (function () {
