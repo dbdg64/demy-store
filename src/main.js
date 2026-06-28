@@ -637,7 +637,7 @@ if ('serviceWorker' in navigator) {
           .join('، ') || p.name;
       const imageUrl = p.image.startsWith('http')
         ? p.image
-        : `https://demy-eg.com/${p.image}`;
+        : `${window.location.origin}/demy-store/${p.image}`;
       return {
         '@type': 'Product',
         '@id': `#product-${p.name.replace(/\s+/g, '-')}`,

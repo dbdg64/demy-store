@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://demy-eg.com/sitemap.xml
+Sitemap: https://dbdg64.github.io/demy-store/sitemap.xml
