@@ -326,6 +326,38 @@
       </div>
     </section>
 
+    <!-- Product Quiz -->
+    <section class="quiz" id="quiz">
+      <div class="section__header">
+        <h2 class="section__title">مش عارف تختار الماتور المناسب؟</h2>
+        <p class="section__desc">جاوب على كام سؤال وهنحدد لك الأنسب لاحتياجك</p>
+      </div>
+      <div class="quiz__container">
+        <div class="quiz__step" id="quiz-step-1">
+          <p class="quiz__question">الماتور هتستخدمه في إيه؟</p>
+          <div class="quiz__options">
+            <button class="quiz__btn" data-answer="home">منزلي (عمارة / فيلا)</button>
+            <button class="quiz__btn" data-answer="farm">زراعي (أرض / بئر)</button>
+            <button class="quiz__btn" data-answer="both">الاتنين</button>
+          </div>
+        </div>
+        <div class="quiz__step" id="quiz-step-2" style="display:none">
+          <p class="quiz__question">عاوز ماتور من النوع ده؟</p>
+          <div class="quiz__options">
+            <button class="quiz__btn" data-answer="surface">موتور سطحى (فوق الأرض)</button>
+            <button class="quiz__btn" data-answer="submersible">غاطس (جوه البئر)</button>
+            <button class="quiz__btn" data-answer="notsure">مش متأكد</button>
+          </div>
+        </div>
+        <div class="quiz__step" id="quiz-step-result" style="display:none">
+          <p class="quiz__result-text">بناءاً على إجاباتك، نرشح لك:</p>
+          <div id="quiz-result-product" class="quiz__result-product"></div>
+          <a id="quiz-wa-link" href="#" target="_blank" class="cta cta--primary">💬 استفسر عن السعر عبر واتساب</a>
+          <button class="quiz__reset">ابدأ من جديد</button>
+        </div>
+      </div>
+    </section>
+
     <!-- Store Location -->
     <section class="location" id="location">
       <div class="section__header">

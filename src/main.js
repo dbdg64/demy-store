@@ -8,6 +8,7 @@ const products = [
     name: 'ماتور ديمى 9000 واحد حصان',
     category: 'motor',
     rating: '⭐ ٥.٠٠',
+    featured: true,
     specs: {
       القوة: '١ حصان',
       الدفع: 'حتى ٥٤ متر (الدور ١٢)',
@@ -163,6 +164,7 @@ const products = [
   {
     name: 'غاطس شارب ٢ حصان بمفرمة',
     category: 'submersible',
+    featured: true,
     specs: {
       القوة: '٢ حصان',
       الماركة: 'شارب',
@@ -183,6 +185,7 @@ const products = [
   {
     name: 'فلوماك ديمى ٩٥٠٠ ديجيتال',
     category: 'flomax',
+    featured: true,
     specs: {
       النوع: 'فلوماك ديجيتال (DSK-15)',
       المواصفات: 'إلكترونى بالكامل',
@@ -254,6 +257,7 @@ function createProductCard(product, index) {
   card.style.animationDelay = `${index * 0.06}s`;
   card.innerHTML = `
     <div class="product__image-wrap">
+      ${product.featured ? '<div class="product__badge">الأكثر مبيعاً</div>' : ''}
       <img
         src="${product.image}"
         alt="${product.name}"
@@ -499,6 +503,85 @@ if ('serviceWorker' in navigator) {
     });
     btn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+
+/* ==========================================
+   Product Quiz — اختر الماتور المناسب
+   ========================================== */
+(function () {
+  const quizSteps = document.querySelectorAll('.quiz__step');
+  const resultProduct = document.getElementById('quiz-result-product');
+  const waLink = document.getElementById('quiz-wa-link');
+  const resetBtn = document.querySelector('.quiz__reset');
+
+  const recommendations = {
+    'home+surface': 'ماتور ديمى 9000 واحد حصان',
+    'home+submersible': 'غاطس ديمى ١ حصان',
+    'home+notsure': 'ماتور ديمى 9000 واحد حصان',
+    'farm+surface': 'ماتور مدفع ٣ حصان ٢ ريشة',
+    'farm+submersible': 'غاطس شارب ٢ حصان بمفرمة',
+    'farm+notsure': 'موتور زراعى ٢ حصان',
+    'both+surface': 'ماتور شمامة ٢ حصان',
+    'both+submersible': 'غاطس ١.٥ حصان شارب',
+    'both+notsure': 'ماتور ديمى 9000 واحد حصان',
+  };
+
+  const answers = {};
+
+  function showStep(id) {
+    quizSteps.forEach((s) => (s.style.display = 'none'));
+    const step = document.getElementById(id);
+    if (step) step.style.display = 'block';
+  }
+
+  function showResult(productName) {
+    const product = products.find((p) => p.name === productName);
+    if (!product) return;
+
+    const specsHtml = Object.entries(product.specs)
+      .map(([k, v]) => `<li>${k}: ${v}</li>`)
+      .join('');
+
+    resultProduct.innerHTML = `
+      <div class="quiz__result-card">
+        <img src="${product.image}" alt="${product.name}" class="quiz__result-img">
+        <div class="quiz__result-info">
+          <h4>${product.name}</h4>
+          <ul class="product__specs">${specsHtml}</ul>
+        </div>
+      </div>
+    `;
+
+    waLink.href = `https://wa.me/201016892956?text=${encodeURIComponent(`أهلاً، أستفسر عن سعر ${product.name}`)}`;
+    showStep('quiz-step-result');
+  }
+
+  document.querySelectorAll('.quiz__btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = btn.closest('.quiz__step');
+      const stepId = step ? step.id : '';
+
+      if (stepId === 'quiz-step-1') {
+        answers.usage = btn.dataset.answer;
+        showStep('quiz-step-2');
+      } else if (stepId === 'quiz-step-2') {
+        answers.type = btn.dataset.answer;
+        const key = `${answers.usage}+${answers.type}`;
+        const recommended = recommendations[key] || 'ماتور ديمى 9000 واحد حصان';
+        showResult(recommended);
+      }
+    });
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      answers.usage = '';
+      answers.type = '';
+      resultProduct.innerHTML = '';
+      waLink.href = '#';
+      showStep('quiz-step-1');
     });
   }
 })();
