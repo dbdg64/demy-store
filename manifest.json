@@ -1,0 +1,20 @@
+{
+  "name": "ديمى — مواتير المياه",
+  "short_name": "ديمى",
+  "description": "مواتير مياه مستوردة بجودة عالية — ٣٠ سنة خبرة",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
